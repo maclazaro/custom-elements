@@ -36,7 +36,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 				<flow-ref name="componentExample" doc:name="componentExample" />
 			</when>
 			<otherwise>
-				<logger message="Could not locate requested path" doc:name="Logger" />
+				<logger message="************ COULD NOT LOCATE REQUESTED PATH ************" doc:name="Logger" level="INFO"/>
 				<set-payload
 					value="{&quot;message&quot;: &quot;Could not locate requested path&quot;}"
 					mimeType="application/json" doc:name="Set Payload" />
@@ -44,9 +44,13 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 		</choice>
 		<json:object-to-json-transformer
 			doc:name="Object to JSON" />
+		<component doc:name="Java">
+			<singleton-object class="com.mulesoft.training.MuleLifecycleComponent" />
+		</component>
 	</flow>
 	<flow name="componentExample">
-		<component class="com.mulesoft.training.MuleComponent"
-			doc:name="Java" />
+		<component doc:name="Java">
+			<singleton-object class="com.mulesoft.training.MuleComponent" />
+		</component>
 	</flow>
 </mule>

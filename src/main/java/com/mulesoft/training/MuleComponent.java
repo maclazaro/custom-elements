@@ -9,6 +9,12 @@ import org.mule.api.annotations.param.Payload;
 
 public class MuleComponent {
 
+	int count;
+
+	public MuleComponent() {
+		count = 1;
+	}
+
 	public Map<String, String> processMap(Map<String, String> input) {
 		// reflection
 		// processMap implementation
@@ -34,14 +40,16 @@ public class MuleComponent {
 		return output;
 	}
 
-	public Map<String, String> processAll(@Payload Object input, @InboundHeaders("http.method") String method) {
+	public Map<String, Object> processAll(@Payload Object input, @InboundHeaders("http.method") String method) {
 		// annotation
 		// will take precedence over reflection
 		// processAll implementation
-		Map<String, String> output = new HashMap<String, String>();
+		Map<String, Object> output = new HashMap<String, Object>();
 		output.put("message", input.toString());
 		output.put("processedBy", "processAll");
 		output.put("http.method", method);
+		output.put("currentCount", count);
+		count++;
 		return output;
 	}
 
